@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<style>
+    body {
+        background-color: #E3E9FF;
+        padding: 64px;
+        width: 600px;
+        height: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+
+    #title {
+        background-color: #AF7EEB;
+        color: #fff;
+        text-align: center;
+        font-size: 24px;
+        padding: 16px;
+        border-radius: 15px;
+
+    }
+
+    #list {
+        background-color: #fff;
+        list-style: none;
+        padding: 24px;
+        border-radius: 15px;
+    }
+
+    .item {
+        padding: 12px;
+        font-size: 24px;
+        color: #8898B9;
+        cursor: pointer;
+    }
+
+    .icon{
+        margin-right: 12px;
+    }
+    .done {
+        text-decoration: line-through;
+        text-decoration-color: #AF7EEB;
+    }
+    .done > .text{
+        text-decoration: line-through;
+        text-decoration-color: #AF7EEB;
+    }
+    .done > .icon{
+        color: #AF7EEB;
+    }
+</style>
+
+<body>
+    <h1 id="title">오늘의 할 일</h1>
+    <ul id="list">
+        <li class="item"><span class="icon">◦ </span><span class="text">List 0</span></li>
+        <li class="item"><span class="icon">◦ </span><span class="text">List 1</span></li>
+        <li class="item"><span class="icon">◦ </span><span class="text">List 2</span></li>
+        <li class="item"><span class="icon">◦ </span><span class="text">List 3</span></li>
+        <li class="item"><span class="icon">◦ </span><span class="text">List 4</span></li>
+    </ul>
+</body>
+
+<script>
+    $('#list>li').each(function (index, item) {
+        let input = prompt((index + 1) + "번째 할 일을 입력하세요. : ")
+        $(item).find('.text').text(input);
+    })
+    $('#list>li').click(function () {
+        $(this).toggleClass('done');
+        if ($(this).hasClass('done')){
+            $(this).find('.icon').text('●')
+        }
+        else{
+            $(this).find('.icon').text('◦')
+        }
+    })
+</script>
+
+</html>

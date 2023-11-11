@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.js"></script> <!-- 한글 로케일 추가 -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="detail-container">
+        <div class="header-container">
+            <span>
+                <img id="backIcon" src="./icon/icons8-back-50.png">
+            </span>
+            <span>
+                <p class="position-text">서울</p>
+            </span>
+            <span>
+                <img id="alarm" src="./icon/notifications_FILL0_wght400_GRAD0_opsz24.png">
+            </span>
+        </div>
+        <div id="main-data-container">
+            <p class="temperature">°C</p>
+            <p class="weather-status">맑음</p>
+        </div>
+        <div class="today-weather-container">
+
+        </div>
+        <div class="week-weather-container">
+            <div class="week-header">
+                <span>
+                    O요일
+                </span>
+                <span class="week-postion">
+                    오전
+                </span>
+                <span>
+                    오후
+                </span>
+                <span class="week-temp">
+                    온도
+                </span>
+            </div>
+            <div class="week-data-container">
+
+            </div>
+        </div>
+        <div class="sub-container">
+            <div class="sub-box">
+
+            </div>
+            <div class="sub-box">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $('#backIcon').click(function () {
+        history.back();
+    })
+    const api_key = "57c783a2fc90cf023ab5e32ac4d580e8"
+    let lat = 37.5665;
+    let lon = 126.9780;
+    let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`
+
+    $.getJSON(url, function (data) {
+        console.log(data)
+        let temp = (data.list[0].main.temp).toFixed(0);
+        let weather = data.list[0].weather[0].main
+        $('.temperature').text(temp + "°C")
+        $('.weather-status').text(weather)
+        for (let i = 0; i < 6; i++) {
+            let icon = data.list[i].weather[0].icon;
+            let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
+            let dt = data.list[i].dt
+            let time = moment(dt * 1000).format('HH:mm');
+
+            let todayBox = $(`<div class="today-list">
+                <p>${time}</p>
+                <p>${(data.list[i].main.temp).toFixed(0)}°C</p>
+                <img src="${iconURL}" alt="날씨">
+            </div>`);
+            $('.today-weather-container').append(todayBox)
+        }
+
+        let maxTemp = -10
+        let minTemp = 100
+        let weekList = $(`<div></div>`)
+
+        for (let i = 0; i < data.list.length; i++) {
+            let time = data.list[i].dt_txt.split(' ')[1];
+            let week_data = data.list[i].dt_txt.split(' ')[0];
+            const today = moment();
+            let temp = data.list[i].main.temp;
+            if (today.format('YYYY-MM-DD') !== week_data && time === "00:00:00") {
+                console.log(week_data)
+                let icon = data.list[i].weather[0].icon;
+                let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
+                let dayOfWeek = moment(data.list[i].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd");
+                $(weekList).append(dayOfWeek)
+                $(weekList).append(`<img class="icon-postion" src=${iconURL} class="week-icon">`)
+            }
+            if (today.format('YYYY-MM-DD') !== week_data && time === "12:00:00") {
+                let icon = data.list[i].weather[0].icon;
+                let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
+                let dayOfWeek = moment(data.list[i].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd");
+                $(weekList).append(`<img class="icon-postion" src=${iconURL} class="week-icon">`)
+                $(weekList).append(`<span class = "max-temp">${maxTemp}/</span`)
+                $(weekList).append(`<span>${minTemp}</span>`)
+                $('.week-data-container').append(weekList)
+            }
+            if (maxTemp < temp) {
+                maxTemp = temp;
+            }
+            if (minTemp > temp) {
+                minTemp = temp;
+            }
+        }
+    })
+</script>
+
+</html>

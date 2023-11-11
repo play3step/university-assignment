@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <button id="move">마우스 드래그</button>
+</body>
+
+<script>
+    let mouse = false;
+
+    $('#move').mousedown(function () {
+        mouse = true;
+        console.log('버튼 누름');
+    });
+
+    $(window).mouseup(function () {
+        mouse = false;
+        console.log('드래그 끝!')
+    });
+
+    $(window).mousemove(function (e) {
+        if (mouse) {
+            console.log('드래그 중');
+        }
+    });
+</script>
+</script>
+
+</html>

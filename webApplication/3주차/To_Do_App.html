@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+</head>
+<style>
+    *{
+        box-sizing:border-box;
+        padding: 0;
+        margin: 0;
+    }
+    body {
+        background-color: #E3E9FF;
+        padding: 64px;
+        width: 600px;
+        height: 600px;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    #title {
+        background-color: #AF7EEB;
+        color: #fff;
+        text-align: center;
+        font-size: 24px;
+        padding: 16px;
+        border-radius: 15px;
+
+    }
+
+    #list {
+        background-color: #fff;
+        list-style: none;
+        padding: 24px;
+        border-radius: 15px;
+        margin-top: 12px;
+    }
+
+    .item {
+        padding: 12px;
+        font-size: 24px;
+        color: #8898B9;
+        cursor: pointer;
+    }
+
+    .icon {
+        margin-right: 12px;
+    }
+
+    .done {
+        text-decoration: line-through;
+        text-decoration-color: #AF7EEB;
+    }
+
+    .done>.text {
+        text-decoration: line-through;
+        text-decoration-color: #AF7EEB;
+    }
+
+    .done>.icon {
+        color: #AF7EEB;
+    }
+    input{
+        width: 380px;
+        height: 50px;
+        border-radius: 25px;
+        padding: 0 0 0 16px;
+        border: none;
+        margin-top: 24px;
+        letter-spacing: 2px;
+
+    }
+    button{
+        background-color: #AF7EEB;
+        width: 80px;
+        height: 50px;
+        margin-left: 6px;
+        border-radius: 25px;
+        color: white;
+        border: none;
+    }
+</style>
+
+<body>
+    <h1 id="title">오늘의 할 일</h1>
+    <ul id="list">
+    </ul>
+    <input id="input_todo" placeholder="ToDoList" />
+    <button id="btn_add">추가</button>
+</body>
+
+<script>
+    $('#btn_add').click(function () {
+        let newItem = $('<li class="item"></li>');
+        let newIcon = $('<span class="icon">○</span>')
+        let newText = $('<span class="text">List 0</span>')
+
+        let task = $('#input_todo').val()
+        newText.text(task)
+        $('#input_todo').val('')        
+        newItem.append(newIcon);
+        newItem.append(newText);
+        newItem.click(function () {
+            $(this).toggleClass('done');
+            if ($(this).hasClass('done')) {
+                $(this).find('.icon').text('●')
+            }
+            else {
+                $(this).find('.icon').text('○')
+            }   
+        });
+        $("#list").append(newItem)
+    });
+
+</script>
+
+</html>

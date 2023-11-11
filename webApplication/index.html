@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+</head>
+
+
+<body>
+    <p id="temp_max"></p>
+    <p id="temp_min"></p>
+</body>
+<script>
+    const api_key = "57c783a2fc90cf023ab5e32ac4d580e8"
+    const lat = "45"
+    const lon = "30"
+    let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`
+
+    $.getJSON(url, function (data) {
+        console.log(data)
+        let temp_max = 0
+        let temp_min = 0
+        
+        let weather =data.list[0].weather[0].main
+        console.log(city)
+        $('#weather').text(weather)
+        let icon = data.list[0].weather[0].icon
+        console.log(icon)
+        let iconURL = `https://api.openweathermap.org/img/wn/` + icon + `@2x.png`
+        $('#icon').attr('src', iconURL)
+    })
+
+</script>
+
+</html>

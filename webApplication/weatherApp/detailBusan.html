@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
+        </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="detail-container">
+        <div class="header-container">
+            <span>
+                <img id="backIcon" src="./icon/icons8-back-50.png">
+            </span>
+            <span>
+                <p class="position-text">부산</p>
+            </span>
+            <span>
+                <img id="alarm" src="./icon/notifications_FILL0_wght400_GRAD0_opsz24.png">
+            </span>
+        </div>
+        <div id="main-data-container">
+            <p class="temperature">23°C</p>
+            <p class="weather-status">맑음</p>
+        </div>
+        <div class="today-weather-container">
+            
+        </div>
+    </div>
+</body>
+<script>
+    $('#backIcon').click(function () {
+        history.back();
+    })
+</script>
+</html>

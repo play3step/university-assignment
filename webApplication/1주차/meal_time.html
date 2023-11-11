@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let input = prompt("현재 시간을 적어주세요 : ", 12);
+    let hour = Number(input);
+    if ((8 <= hour) && (hour < 12)) {
+        console.log("아침 먹을 시간입니다.");
+    }
+    else if ((12 <= hour) && (hour < 15)) {
+        console.log("점심 먹을 시간입니다.");
+    }
+    else if ((15 <= hour) && (hour < 22)) {
+        console.log("저녁 먹을 시간 입니다.");
+    }
+    else {
+        console.log("잘 시간 입니다.");
+    }
+</script>
+
+</html>
