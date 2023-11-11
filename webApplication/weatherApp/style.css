@@ -258,7 +258,6 @@
 
     .week-weather-container {
         width: 366px;
-        height: 244px;
         background-color: rgba(42, 47, 77, 0.5);
         border-radius: 15px;
         margin-top: 16px;
@@ -268,30 +267,31 @@
     }
 
     .week-header {
-        font-size: 14px;
-        margin-bottom: 16px;
+        font-size: 26px;
         font-weight: 600;
-    }
-
-    .week-postion {
-        margin-left: 51px;
-        margin-right: 60px;
-    }
-
-    .week-temp {
-        margin-left: 48px;
+        height: 46px;
+        border-bottom: 1px solid;
+        margin-bottom: 12px;
     }
 
     .week-data-container {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        
     }
+    .week-list{
+        display: flex;
+        align-items: center;
+        height: 40px;
 
+    }
     .icon-postion {
-        margin-left: 50px;
+        margin-left: 36px;
         width: 35px;
         height: 35px;
     }
+
 
     .sub-container {
         margin-top: 16px;
@@ -314,8 +314,10 @@
         width: 35px;
         height: 35px;
     }
+    
 
     .max-temp {
         color: red;
+        margin-left: 48px;
     }
 }

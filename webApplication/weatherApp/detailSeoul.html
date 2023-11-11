@@ -40,18 +40,7 @@
         </div>
         <div class="week-weather-container">
             <div class="week-header">
-                <span>
-                    O요일
-                </span>
-                <span class="week-postion">
-                    오전
-                </span>
-                <span>
-                    오후
-                </span>
-                <span class="week-temp">
-                    온도
-                </span>
+                <span>주간 날씨</span>
             </div>
             <div class="week-data-container">
 
@@ -96,16 +85,19 @@
             $('.today-weather-container').append(todayBox)
         }
 
-        let maxTemp = -10
-        let minTemp = 100
-        let weekList = $(`<div></div>`)
 
+        let weekList;
+        let maxTemp, minTemp
         for (let i = 0; i < data.list.length; i++) {
             let time = data.list[i].dt_txt.split(' ')[1];
             let week_data = data.list[i].dt_txt.split(' ')[0];
             const today = moment();
             let temp = data.list[i].main.temp;
+
             if (today.format('YYYY-MM-DD') !== week_data && time === "00:00:00") {
+                weekList = $(`<div class="week-list"></div>`);
+                maxTemp = -10
+                minTemp = 100
                 console.log(week_data)
                 let icon = data.list[i].weather[0].icon;
                 let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
@@ -113,6 +105,7 @@
                 $(weekList).append(dayOfWeek)
                 $(weekList).append(`<img class="icon-postion" src=${iconURL} class="week-icon">`)
             }
+
             if (today.format('YYYY-MM-DD') !== week_data && time === "12:00:00") {
                 let icon = data.list[i].weather[0].icon;
                 let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
@@ -128,6 +121,7 @@
             if (minTemp > temp) {
                 minTemp = temp;
             }
+
         }
     })
 </script>
