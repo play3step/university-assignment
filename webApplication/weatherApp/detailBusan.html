@@ -9,6 +9,9 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
         </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.js"></script> <!-- 한글 로케일 추가 -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap"
@@ -29,11 +32,48 @@
             </span>
         </div>
         <div id="main-data-container">
-            <p class="temperature">23°C</p>
+            <p class="temperature">°C</p>
             <p class="weather-status">맑음</p>
         </div>
         <div class="today-weather-container">
-            
+
+        </div>
+        <div class="week-weather-container">
+            <div class="week-header">
+                <span>주간 날씨</span>
+            </div>
+            <div class="week-data-container">
+
+            </div>
+        </div>
+        <div class="sub-container">
+            <div class="sub-box">
+                <div class="sub-header">
+                    <span>미세 먼지</span>
+                    <div class="pollution_icon">
+
+                    </div>
+                </div>
+            </div>
+            <div class="sub-box">
+                <div class="sub-header">
+                    <span>대기 질 지수</span>
+                    <div class="standard">
+                        <span>1 ~ 2 : </span>
+                        <img src="./icon/1,2.png" alt="웃는 아이콘">
+                    </div>
+                    <div class="standard">
+                        <span>3 : </span>
+                        <img src="./icon/3.png" alt="정색하는 아이콘">
+
+                    </div>
+                    <div class="standard">
+                        <span>4 ~ 5: </span>
+                        <img src="./icon/4,5.png" alt="마스크 쓴 아이콘">
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -41,5 +81,98 @@
     $('#backIcon').click(function () {
         history.back();
     })
+    const api_key = "57c783a2fc90cf023ab5e32ac4d580e8"
+    lat = 35.1796;
+    lon = 129.0756;
+    let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`
+
+    $.getJSON(url, function (data) {
+        console.log(data)
+        let temp = (data.list[0].main.temp).toFixed(0);
+        let weather = data.list[0].weather[0].main
+        $('.temperature').text(temp + "°C")
+        $('.weather-status').text(weather)
+        for (let i = 0; i < 6; i++) {
+            let icon = data.list[i].weather[0].icon;
+            let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
+            let dt = data.list[i].dt
+            let time = moment(dt * 1000).format('HH:mm');
+
+            let todayBox = $(`<div class="today-list">
+                <p>${time}</p>
+                <p>${(data.list[i].main.temp).toFixed(0)}°C</p>
+                <img src="${iconURL}" alt="날씨">
+            </div>`);
+            $('.today-weather-container').append(todayBox)
+        }
+        let weekList;
+        let maxTemp, minTemp
+        for (let i = 0; i < data.list.length; i++) {
+            let time = data.list[i].dt_txt.split(' ')[1];
+            let week_data = data.list[i].dt_txt.split(' ')[0];
+            const today = moment();
+            let temp = data.list[i].main.temp;
+
+            if (today.format('YYYY-MM-DD') !== week_data && time === "00:00:00") {
+                weekList = $(`<div class="week-list"></div>`);
+                maxTemp = -10
+                minTemp = 100
+                console.log(week_data)
+                let icon = data.list[i].weather[0].icon;
+                let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
+                let dayOfWeek = moment(data.list[i].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd");
+                $(weekList).append(dayOfWeek)
+                $(weekList).append(`<img class="icon-postion" src=${iconURL}>`)
+            }
+
+            if (today.format('YYYY-MM-DD') !== week_data && time === "12:00:00") {
+                let icon = data.list[i].weather[0].icon;
+                let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
+                let dayOfWeek = moment(data.list[i].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd");
+                $(weekList).append(`<img class="icon-postion" src=${iconURL}>`)
+                $(weekList).append(`<span class = "max-temp">${maxTemp}/</span`)
+                $(weekList).append(`<span>${minTemp}</span>`)
+                $('.week-data-container').append(weekList)
+            }
+            if (maxTemp < temp) {
+                maxTemp = temp;
+            }
+            if (minTemp > temp) {
+                minTemp = temp;
+            }
+        }
+    })
+
+    let pollutionUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${api_key}`
+    $.getJSON(pollutionUrl, function (data) {
+        pollutionData = data.list[0].main.aqi
+        console.log(pollutionData)
+        if (pollutionData === 1 || pollutionData === 2) {
+            $('.pollution_icon').append(`<img class = "pollutionIcon" src="./icon/1,2.png" alt="1,2">`);
+
+        } else if (pollutionData === 3) {
+            $('.pollution_icon').append(`<img class = "pollutionIcon" src="./icon/3.png" alt="3">`);
+        } else if (pollutionData === 4 || pollutionData === 5) {
+            $('.pollution_icon').append(`<img class = "pollutionIcon" src="./icon/4,5.png" alt="4,5">`);
+        }
+    })
+
+    let currentTime = moment();
+    let currentData = currentTime.format('HH')
+    console.log(currentData)
+    let body = $('body');
+    if (currentData >= 6 && currentData <= 15) {
+        body.css('background-image', 'url("./weather-background/morning.png")');
+    }
+    else if (currentData >= 16 && currentData <= 18) {
+        body.css('background-image', 'url("./weather-background/afternoon.png")');
+    }
+    else {
+        body.css('background-image', 'url("./weather-background/evening.png")');
+    }
 </script>
+
+
+</script>
+
 </html>

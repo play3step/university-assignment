@@ -16,9 +16,9 @@
 
     body::after {
         content: "";
-        background-image: url("./weather-background/afternoon.png");
         background-position: center center;
         background-size: cover;
+        background-repeat: no-repeat;
         position: absolute;
         top: 0;
         left: 0;
@@ -278,14 +278,16 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        
+
     }
-    .week-list{
+
+    .week-list {
         display: flex;
         align-items: center;
         height: 40px;
 
     }
+
     .icon-postion {
         margin-left: 36px;
         width: 35px;
@@ -304,20 +306,46 @@
         height: 170px;
         background-color: rgba(42, 47, 77, 0.5);
         border-radius: 15px;
+        padding: 15px;
+    }
+
+    .sub-header {
+        font-size: 16px;
+        font-weight: 500;
+        height: 30px;
+        width: 140px;
+        border-bottom: 1px solid;
+        margin-bottom: 12px;
+        color: white;
     }
 
     .sub-box:nth-child(2) {
         margin-left: 26px;
     }
 
-    .week-icon {
-        width: 35px;
-        height: 35px;
-    }
-    
-
     .max-temp {
         color: red;
         margin-left: 48px;
+    }
+
+    .standard {
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+    }
+    .standard img {
+        width: 16px;
+        height: 16px;
+        margin-left: 16px;
+        margin-top: 5px;
+    }
+    .pollutionIcon{
+        width: 70px;
+        height: 70px;
+    }
+    .pollution_icon{
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
     }
 }

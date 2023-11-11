@@ -22,18 +22,7 @@
             <img src="./icon//icons8-add-50.png" class="add-icon">
         </div>
         <div class="add-region">
-            <!-- <a href="/" class="region-box">
-                <div class="left-box">
-                    <p class="time-text">시간</p>
-                    <div>
-                        <span class="region-text">서울</span>
-                        <span>온도온도</span>
-                    </div>
-                </div>
-                <div class="right-box">
-                    <img src="이미지_파일_경로" alt="이미지 설명">
-                </div>
-            </a> -->
+
         </div>
     </div>
     <div id="modal">
@@ -112,8 +101,21 @@
                 $('.add-box').css('display', 'none')
             }
         })
-
     });
+    let currentTime = moment();
+    let currentData = currentTime.format('HH')
+    console.log(currentData)
+    let body = $('body');
+    //6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+    if (currentData >= 6 && currentData <= 15) {
+        body.css('background-image', 'url("./weather-background/morning.png")');
+    } 
+    else if (currentData >= 16 && currentData <= 18) {
+        body.css('background-image', 'url("./weather-background/afternoon.png")');
+    } 
+    else {
+        body.css('background-image', 'url("./weather-background/evening.png")');
+    }
 </script>
 
 </html>
