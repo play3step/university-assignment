@@ -25,6 +25,7 @@
         width: 100%;
         height: 100%;
         z-index: -1;
+        background-color: rgba(0, 0, 0, 0.3); /* 투명도를 조절하는 부분 */
     }
 
     .main-container {
@@ -162,8 +163,6 @@
 
     /* detail 페이지*/
 
-    .add-icon {}
-
     #detail-container {
         width: 390px;
         height: 844px;
@@ -180,6 +179,7 @@
         display: flex;
         align-items: center;
         position: fixed;
+        
     }
 
     .position-text {
@@ -207,7 +207,7 @@
         right: 0px;
         bottom: 5px;
     }
-
+    
     #main-data-container {
         width: 366px;
         margin-top: 80px;
@@ -236,7 +236,7 @@
         height: 120px;
         background-color: rgba(42, 47, 77, 0.5);
         border-radius: 15px;
-        margin-top: 124px;
+        margin-top: 84px;
         padding: 14px 0 18px 0;
         display: flex;
         justify-content: center;
@@ -245,16 +245,28 @@
 
     .today-list {
         width: 35px;
-        font-size: 14px;
         color: white;
         text-align: center;
-        margin-right: 18px;
+        margin-right: 24px;
         font-weight: 400;
     }
 
     .today-list:last-child {
         margin: 0;
     }
+
+    .todayTime {
+        font-size: 16px;
+        font-weight: 400;
+        margin-bottom: 8px;
+    }
+
+    .todayTemp {
+        font-weight: 400;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
 
     .week-weather-container {
         width: 366px;
@@ -333,19 +345,23 @@
         display: flex;
         align-items: center;
     }
+
     .standard img {
         width: 16px;
         height: 16px;
         margin-left: 16px;
         margin-top: 5px;
     }
-    .pollutionIcon{
+
+    .pollutionIcon {
         width: 70px;
         height: 70px;
     }
-    .pollution_icon{
+
+    .pollution_icon {
         display: flex;
         justify-content: center;
         margin-top: 30px;
     }
+    
 }

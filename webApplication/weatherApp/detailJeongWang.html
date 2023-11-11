@@ -99,8 +99,8 @@
             let time = moment(dt * 1000).format('HH:mm');
 
             let todayBox = $(`<div class="today-list">
-                <p>${time}</p>
-                <p>${(data.list[i].main.temp).toFixed(0)}°C</p>
+                <p class="todayTime">${time}</p>
+                <p class="todayTemp">${(data.list[i].main.temp).toFixed(0)}°C</p>
                 <img src="${iconURL}" alt="날씨">
             </div>`);
             $('.today-weather-container').append(todayBox)

@@ -10,8 +10,7 @@
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
         </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.js"></script> <!-- 한글 로케일 추가 -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap"
@@ -87,7 +86,7 @@
     let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`
 
     $.getJSON(url, function (data) {
-        console.log(data)
+        // console.log(data)
         let temp = (data.list[0].main.temp).toFixed(0);
         let weather = data.list[0].weather[0].main
         $('.temperature').text(temp + "°C")
@@ -99,8 +98,8 @@
             let time = moment(dt * 1000).format('HH:mm');
 
             let todayBox = $(`<div class="today-list">
-                <p>${time}</p>
-                <p>${(data.list[i].main.temp).toFixed(0)}°C</p>
+                <p class="todayTime">${time}</p>
+                <p class="todayTemp">${(data.list[i].main.temp).toFixed(0)}°C</p>
                 <img src="${iconURL}" alt="날씨">
             </div>`);
             $('.today-weather-container').append(todayBox)
@@ -117,7 +116,7 @@
                 weekList = $(`<div class="week-list"></div>`);
                 maxTemp = -10
                 minTemp = 100
-                console.log(week_data)
+                // console.log(week_data)
                 let icon = data.list[i].weather[0].icon;
                 let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
                 let dayOfWeek = moment(data.list[i].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd");
@@ -146,7 +145,7 @@
     let pollutionUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${api_key}`
     $.getJSON(pollutionUrl, function (data) {
         pollutionData = data.list[0].main.aqi
-        console.log(pollutionData)
+        // console.log(pollutionData)
         if (pollutionData === 1 || pollutionData === 2) {
             $('.pollution_icon').append(`<img class = "pollutionIcon" src="./icon/1,2.png" alt="1,2">`);
 
@@ -159,7 +158,7 @@
 
     let currentTime = moment();
     let currentData = currentTime.format('HH')
-    console.log(currentData)
+    // console.log(currentData)
     let body = $('body');
     if (currentData >= 6 && currentData <= 15) {
         body.css('background-image', 'url("./weather-background/morning.png")');
@@ -170,9 +169,8 @@
     else {
         body.css('background-image', 'url("./weather-background/evening.png")');
     }
+    
 </script>
 
-
-</script>
 
 </html>
