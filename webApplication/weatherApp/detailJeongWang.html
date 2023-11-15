@@ -92,7 +92,7 @@
         let weather = data.list[0].weather[0].main
         $('.temperature').text(temp + "°C")
         $('.weather-status').text(weather)
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 12; i++) {
             let icon = data.list[i].weather[0].icon;
             let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
             let dt = data.list[i].dt
@@ -130,8 +130,8 @@
                 let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
                 let dayOfWeek = moment(data.list[i].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd");
                 $(weekList).append(`<img class="icon-postion" src=${iconURL}>`)
-                $(weekList).append(`<span class = "max-temp">${maxTemp}/</span`)
-                $(weekList).append(`<span>${minTemp}</span>`)
+                $(weekList).append(`<span class = "max-temp">${maxTemp.toFixed(1)}/</span`)
+                $(weekList).append(`<span>${minTemp.toFixed(1)}</span>`)
                 $('.week-data-container').append(weekList)
             }
             if (maxTemp < temp) {

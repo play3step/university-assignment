@@ -50,7 +50,6 @@
     </div>
 </body>
 <script>
-    let addCount = 0
     $('.add-box').click(function () {
         $('#modal').css('display', 'block')
     })
@@ -75,6 +74,7 @@
             lon = 126.8032;
         }
         let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`
+
         $.getJSON(url, function (data) {
             console.log(data)
             let icon = data.weather[0].icon;
@@ -82,37 +82,39 @@
             let dt = data.dt
             let time = moment(dt * 1000).format('HH:mm a');
 
-            let addBox = $(`<a href="${href}" class="region-box"><div class="left-box">
+            let addBox = $(`<div class="region-box">
+                <div class="left-box">
+                <img class ="delete-btn" src="./icon/icons8-delete-24.png">
                     <p class="time-text">${time}</p>
-                    <div>
-                        <span class="region-text">${data.name}</span>
-                        <span class="temp-text">${(data.main.temp).toFixed(1)}</span>
-                    </div>
+                    <a href="${href}">
+                        <span class="region-text">${selectedRegion}</span>
+                        <span class="temp-text">${(data.main.temp).toFixed(1)} °C</span>
+                    </a>
                 </div>
                 <div class="right-box">
                     <img src="${iconURL}" alt="날씨">
-                </div></a>`);
+                </div> 
+            </div>`);
             $('.add-region').append(addBox);
-
-            addCount++;
             $('#modal').css('display', 'none');
-
-            if (addCount >= 4) {
-                $('.add-box').css('display', 'none')
-            }
         })
     });
+
+    $('.add-region').on('click', '.delete-btn', function () {
+        //this = delete-btn
+        $(this).closest('.region-box').remove();
+    });
+
     let currentTime = moment();
     let currentData = currentTime.format('HH')
     console.log(currentData)
     let body = $('body');
-    //6, 7, 8, 9, 10, 11, 12, 13, 14, 15
     if (currentData >= 6 && currentData <= 15) {
         body.css('background-image', 'url("./weather-background/morning.png")');
-    } 
+    }
     else if (currentData >= 16 && currentData <= 18) {
         body.css('background-image', 'url("./weather-background/afternoon.png")');
-    } 
+    }
     else {
         body.css('background-image', 'url("./weather-background/evening.png")');
     }
