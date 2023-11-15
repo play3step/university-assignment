@@ -4,9 +4,9 @@
     padding: 0;
 }
 
-/* 메인 페이지 */
+/* 로그인 페이지 */
 
-#mainContainer {
+#loginContainer {
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
@@ -34,12 +34,12 @@
     justify-content: center;
 }
 
-#logo{    
+#logo {
     width: 240px;
     margin-bottom: 32px;
 }
 
-.loginBox{
+.loginBox {
     margin-top: 12px;
     display: flex;
     flex-direction: column;
@@ -51,7 +51,7 @@
     align-items: center;
 }
 
-.loginBox input{
+.loginBox input {
     width: 258px;
     height: 36px;
     padding: 12px;
@@ -60,9 +60,9 @@
     border: #67B5FA;
     border: 1px solid #aaa;
     background-color: rgb(235, 232, 232);
-
 }
-.loginBtn{
+
+.loginBtn {
     border-radius: 6px;
     border: 0;
     width: 258px;
@@ -72,7 +72,7 @@
     margin-top: 12px;
 }
 
-#membershipContainer{
+#membershipContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,7 +81,8 @@
     border: 1px solid #aaa;
     margin-top: 16px;
 }
-.join-membership{
+
+.join-membership {
     color: #67B5FA;
     text-decoration: none;
     margin-left: 6px;
@@ -90,7 +91,7 @@
 
 /* 회원가입 페이지 */
 
-#accountsContainer{
+#accountsContainer {
     width: 350px;
     height: 600px;
     border: 1px solid #aaa;
@@ -102,4 +103,114 @@
     align-items: center;
     padding: 40px 0 0 0;
 
+}
+
+
+.accountBox {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accountBox input {
+    width: 258px;
+    height: 36px;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 4px;
+    border: #67B5FA;
+    border: 1px solid #aaa;
+    background-color: rgb(235, 232, 232);
+}
+
+.account-btn {
+    border-radius: 6px;
+    border: 0;
+    width: 258px;
+    height: 32px;
+    background-color: #67B5FA;
+    color: white;
+    margin-top: 12px;
+}
+
+/* 메인 페이지 */
+
+#mainContainer {
+    height: 2000px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+#navContainer {
+    width: 200px;
+    background-color: white;
+    padding: 40px 16px 0 16px;
+}
+
+#navContainer li {
+    list-style-type: none;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+
+}
+
+.nav-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 12px;
+    vertical-align: middle;
+
+}
+
+.nav-text{
+    font-size: 16px;
+    margin-left: 16px;
+}
+
+#navContainer li:hover{
+    background-color: #D9D9D9;
+    border-radius: 12px;
+}
+
+#postContainer{
+    margin-left: 76px;
+    width: 630px;
+    background-color:#aaa;
+    display: flex;
+    justify-content: center;
+
+}
+
+.post-container{
+    width: 468px;
+    height: 760px;
+    background-color: #D9D9D9;
+    padding: 16px 0 0 0;
+    position: relative;
+
+}
+.post-nickname{
+    margin-left: 8px;
+    font-size: 16px;
+}
+.more-btn{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 16px;
+    top: 20px;
+}
+.post-img-box{
+    width: 468px;
+    height: 468px;
+    margin-top: 16px;
+    border: 1px solid;
 }

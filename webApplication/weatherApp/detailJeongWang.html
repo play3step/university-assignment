@@ -82,8 +82,8 @@
         history.back();
     })
     const api_key = "57c783a2fc90cf023ab5e32ac4d580e8"
-    lat = 37.3804;
-    lon = 126.8032;
+    let lat = 37.3804;
+    let lon = 126.8032;
     let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`
 
     $.getJSON(url, function (data) {
@@ -106,34 +106,38 @@
             $('.today-weather-container').append(todayBox)
         }
         let weekList;
-        let maxTemp, minTemp
+
+        let maxTemp = -10
+        let minTemp = 100
         for (let i = 0; i < data.list.length; i++) {
             let time = data.list[i].dt_txt.split(' ')[1];
             let week_data = data.list[i].dt_txt.split(' ')[0];
             const today = moment();
             let temp = data.list[i].main.temp;
-
             if (today.format('YYYY-MM-DD') !== week_data && time === "00:00:00") {
+                if (weekList) {
+                    // 이전 주간 날씨를 추가하고 초기화
+                    $(weekList).append(`<span class="max-temp">${maxTemp.toFixed(1)}/</span>`);
+                    $(weekList).append(`<span>${minTemp.toFixed(1)}</span>`);
+                    $('.week-data-container').append(weekList);
+                    maxTemp = -10;
+                    minTemp = 100;
+                }
                 weekList = $(`<div class="week-list"></div>`);
-                maxTemp = -10
-                minTemp = 100
-                console.log(week_data)
                 let icon = data.list[i].weather[0].icon;
-                let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
-                let dayOfWeek = moment(data.list[i].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd");
-                $(weekList).append(dayOfWeek)
-                $(weekList).append(`<img class="icon-postion" src=${iconURL}>`)
+                let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
+                let dayOfWeek = moment(data.list[i].dt_txt).format("dddd");
+
+                $(weekList).append(dayOfWeek);
+                $(weekList).append(`<img class="icon-postion" src=${iconURL}>`);
+            }
+            if (time === "15:00:00") {
+                // 15시에 해당하는 날씨 아이콘 추가
+                let icon = data.list[i].weather[0].icon;
+                let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
+                $(weekList).append(`<img class="icon-postion" src=${iconURL}>`);
             }
 
-            if (today.format('YYYY-MM-DD') !== week_data && time === "12:00:00") {
-                let icon = data.list[i].weather[0].icon;
-                let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png'
-                let dayOfWeek = moment(data.list[i].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd");
-                $(weekList).append(`<img class="icon-postion" src=${iconURL}>`)
-                $(weekList).append(`<span class = "max-temp">${maxTemp.toFixed(1)}/</span`)
-                $(weekList).append(`<span>${minTemp.toFixed(1)}</span>`)
-                $('.week-data-container').append(weekList)
-            }
             if (maxTemp < temp) {
                 maxTemp = temp;
             }
@@ -173,6 +177,5 @@
 </script>
 
 
-</script>
 
 </html>

@@ -88,7 +88,6 @@
     let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`
 
     $.getJSON(url, function (data) {
-        console.log(data)
         let temp = (data.list[0].main.temp).toFixed(0);
         let weather = data.list[0].weather[0].main
         $('.temperature').text(temp + "°C")
@@ -127,7 +126,6 @@
                     minTemp = 100;
                 }
                 weekList = $(`<div class="week-list"></div>`);
-
                 let icon = data.list[i].weather[0].icon;
                 let iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
                 let dayOfWeek = moment(data.list[i].dt_txt).format("dddd");
